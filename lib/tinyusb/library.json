@@ -1,0 +1,12 @@
+{
+    "name": "TinyUSB",
+    "verision": "0.0.0",
+    "build": {
+        "srcDir": "tinyusb",
+        "srcFilter": "-<*> +<src/> -<src/*/*> +<src/device/*> +<src/class/hid/*> +<src/class/msc/*> +<src/common/*> +<src/portable/st/*>",
+        "flags": [
+            "-Itinyusb/src",
+            "-Itinyusb/hw"
+        ]
+    }
+}
