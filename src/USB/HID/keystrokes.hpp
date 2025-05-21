@@ -9,6 +9,8 @@ typedef struct {
     uint8_t keycode[6];
 } KeystrokeType;
 
+KeystrokeType GenKeyCodeOneKey(uint8_t key, uint8_t mod = 0);
+
 template<uint32_t N>
 class KeystrokeStore {
     public:
