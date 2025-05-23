@@ -1,0 +1,7 @@
+{
+    "name": "KeyConfigParser",
+    "verision": "0.0.0",
+    "build": {
+        "srcDir": "."
+    }
+}
