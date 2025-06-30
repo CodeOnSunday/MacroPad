@@ -2,6 +2,7 @@ extern "C" {
     #include "Cube/main.h"
     #include "Cube/gpio.h"
     #include "Cube/peripherals/usart.h"
+    #include "Cube/peripherals/dma.h"
     #include "Cube/peripherals/tim.h"
     #include "Cube/peripherals/usb.h"
 
@@ -28,11 +29,22 @@ void configureBtn() {
     } );
 }
 
+const uint16_t ARR = 57;
+const uint16_t LB1 = 28;
+const uint16_t LB0 = 14;
+
+uint16_t led_data[32];
+
+void TIM_Callback(TIM_HandleTypeDef *htim){
+    HAL_TIM_PWM_Stop_DMA(&htim3, TIM_CHANNEL_3);
+}
+
 int main() {
     HAL_Init();
     SystemClock_Config();
 
     MX_GPIO_Init();
+    MX_DMA_Init();
     MX_TIM3_Init();
     MX_USART1_UART_Init();
     MX_USB_PCD_Init();
@@ -45,6 +57,13 @@ int main() {
     tusb_init(BOARD_TUD_RHPORT, &dev_init);
 
     configureBtn();
+
+    for(uint16_t i=0;i<sizeof(led_data) / sizeof(uint16_t);i++){
+        led_data[i] = LB1;
+    }
+
+    HAL_TIM_RegisterCallback(&htim3, HAL_TIM_PWM_PULSE_FINISHED_CB_ID, TIM_Callback);
+    HAL_TIM_PWM_Start_DMA(&htim3, TIM_CHANNEL_3, (uint32_t*)led_data, sizeof(led_data) / sizeof(uint16_t));
   
     while(1) {
         uint32_t time = HAL_GetTick();

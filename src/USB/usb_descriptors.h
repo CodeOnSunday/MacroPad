@@ -11,6 +11,7 @@
 enum
 {
   ITF_NUM_HID,
+  ITF_NUM_CDC,
   ITF_NUM_TOTAL
 };
 

@@ -157,7 +157,7 @@ char const *string_desc_arr[] =
   "TinyUSB Device",               // 2: Product
   NULL,                           // 3: Serials will use unique ID if possible
   "Keyboard Interface",           // 4: Interface 1 String
-  "KeyboadConfig",                // 5: Interface 2 String
+  "Keyboard Config",              // 5: Interface 2 String
 };
 
 static uint16_t _desc_str[32 + 1];

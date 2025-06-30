@@ -49,14 +49,14 @@
 /*#define HAL_RNG_MODULE_ENABLED   */
 /*#define HAL_RTC_MODULE_ENABLED   */
 /*#define HAL_SPI_MODULE_ENABLED   */
-/*#define HAL_TIM_MODULE_ENABLED   */
-/*#define HAL_UART_MODULE_ENABLED   */
+#define HAL_TIM_MODULE_ENABLED
+#define HAL_UART_MODULE_ENABLED
 /*#define HAL_USART_MODULE_ENABLED   */
 /*#define HAL_IRDA_MODULE_ENABLED   */
 /*#define HAL_SMARTCARD_MODULE_ENABLED   */
 /*#define HAL_SMBUS_MODULE_ENABLED   */
 /*#define HAL_WWDG_MODULE_ENABLED   */
-/*#define HAL_PCD_MODULE_ENABLED   */
+#define HAL_PCD_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
@@ -173,7 +173,7 @@
 #define  USE_HAL_RTC_REGISTER_CALLBACKS         0U /* RTC register callback disabled       */
 #define  USE_HAL_SPI_REGISTER_CALLBACKS         0U /* SPI register callback disabled       */
 #define  USE_HAL_I2S_REGISTER_CALLBACKS         0U /* I2S register callback disabled       */
-#define  USE_HAL_TIM_REGISTER_CALLBACKS         0U /* TIM register callback disabled       */
+#define  USE_HAL_TIM_REGISTER_CALLBACKS         1U /* TIM register callback disabled       */
 #define  USE_HAL_TSC_REGISTER_CALLBACKS         0U /* TSC register callback disabled       */
 #define  USE_HAL_PCD_REGISTER_CALLBACKS         0U /* PCD register callback disabled       */
 
