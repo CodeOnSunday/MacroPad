@@ -7,10 +7,10 @@ extern "C" {
 }
 
 void hid_task() {
-	if ( tud_hid_n_ready(ITF_NUM_HID1) ) {
+	if ( tud_hid_n_ready(ITF_NUM_HID) ) {
 		if(!keystroke_store.IsEmpty()){
 			KeystrokeType stroke = keystroke_store.Pull();
-			tud_hid_n_keyboard_report(ITF_NUM_HID1, 0, stroke.modifier, stroke.keycode);
+			tud_hid_n_keyboard_report(ITF_NUM_HID, 0, stroke.modifier, stroke.keycode);
 		}
 	}
 }

@@ -16,17 +16,28 @@ extern "C" {
 #include "USB/HID/hid.hpp"
 #include "USB/HID/usb_hid_keys.h"
 
+#include "configuration.hpp"
+std::array<ConfigEntry, 6*10> config_buffer;
+
 using namespace std;
 
 void configureBtn() {
-    buttons[0] = Button(buttons[0], []() { 
-        keystroke_store.PushStroke(GenKeyCodeOneKey(KEY_A));
-        keystroke_store.PushRelease();
-    } );
-    buttons[1] = Button(buttons[1], []() { 
-        keystroke_store.PushStroke(GenKeyCodeOneKey(KEY_B));
-        keystroke_store.PushRelease();
-    } );
+
+    config_buffer[0].Type = CET_SENDKEY | CET_LAST;
+    config_buffer[0].Param.Key.keycode = KEY_A;
+
+    config_buffer[1].Type = CET_SENDKEY | CET_LAST;
+    config_buffer[1].Param.Key.keycode = KEY_A;
+    config_buffer[1].Param.Key.modifier = HID_KEY_SHIFT_LEFT;
+
+    config_buffer[2].Type = CET_SENDKEY;
+    config_buffer[2].Param.Key.keycode = KEY_B;
+
+    config_buffer[3].Type = CET_SENDKEY | CET_LAST;
+    config_buffer[3].Param.Key.keycode = KEY_C;
+
+    buttons[0] = Button(buttons[0], &config_buffer[0], &config_buffer[1] );
+    buttons[1] = Button(buttons[1], &config_buffer[2] );
 }
 
 const uint16_t ARR = 57;
@@ -48,8 +59,7 @@ int main() {
     MX_TIM3_Init();
     MX_USART1_UART_Init();
     MX_USB_PCD_Init();
-
-
+    
     tusb_rhport_init_t dev_init = {
         .role = TUSB_ROLE_DEVICE,
         .speed = TUSB_SPEED_AUTO

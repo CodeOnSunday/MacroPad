@@ -34,13 +34,7 @@ class BtnHWInput {
         BtnHWPin hwPin;
 };
 
-#ifndef BUTTON_HW_EXTERN
-extern std::array<BtnHWGroup, 4> GroupDefinitions;
-extern std::array<BtnHWInput, 24> ButtonDefinitions;
-#endif
-
-ButtonState ButtonReadState(uint32_t idx);
-ButtonCheckStateType GenerateBtnChecker(uint32_t idx);
+ButtonState ButtonHW_ReadState(uint32_t idx);
 
 void btn_hw_task(uint32_t time);
 

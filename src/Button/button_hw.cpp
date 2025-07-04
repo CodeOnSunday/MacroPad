@@ -46,11 +46,11 @@ ButtonState BtnHWInput::Get() const {
 }
 
 
-std::array<BtnHWGroup, 4> GroupDefinitions = {
+std::array<BtnHWGroup, 1> GroupDefinitions = {
     BtnHWGroup({ .port=GPIOA, .pin=LL_GPIO_PIN_5 }, true),
-    BtnHWGroup({ .port=GPIOA, .pin=LL_GPIO_PIN_6 }),
-    BtnHWGroup({ .port=GPIOA, .pin=LL_GPIO_PIN_7 }),
-    BtnHWGroup({ .port=GPIOA, .pin=LL_GPIO_PIN_8 })
+    // BtnHWGroup({ .port=GPIOA, .pin=LL_GPIO_PIN_6 }),
+    // BtnHWGroup({ .port=GPIOA, .pin=LL_GPIO_PIN_7 }),
+    // BtnHWGroup({ .port=GPIOA, .pin=LL_GPIO_PIN_8 })
 };
 
 const struct BtnHWPin InputDefinitions[6] = {
@@ -62,7 +62,7 @@ const struct BtnHWPin InputDefinitions[6] = {
     { .port=GPIOA, .pin=LL_GPIO_PIN_4 }
 };
 
-std::array<BtnHWInput, 24> ButtonDefinitions = {
+std::array<BtnHWInput, 6> ButtonDefinitions = {
     // Btn 1-6
     BtnHWInput(&(GroupDefinitions[0]), InputDefinitions[0]),
     BtnHWInput(&(GroupDefinitions[0]), InputDefinitions[1]),
@@ -70,33 +70,31 @@ std::array<BtnHWInput, 24> ButtonDefinitions = {
     BtnHWInput(&(GroupDefinitions[0]), InputDefinitions[3]),
     BtnHWInput(&(GroupDefinitions[0]), InputDefinitions[4]),
     BtnHWInput(&(GroupDefinitions[0]), InputDefinitions[5]),
-    // Btn 7-12
-    BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[0]),
-    BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[1]),
-    BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[2]),
-    BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[3]),
-    BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[4]),
-    BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[5]),
-    // Btn 13-18
-    BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[0]),
-    BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[1]),
-    BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[2]),
-    BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[3]),
-    BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[4]),
-    BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[5]),
-    // Btn 19-24
-    BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[0]),
-    BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[1]),
-    BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[2]),
-    BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[3]),
-    BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[4]),
-    BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[5]),
+    // // Btn 7-12
+    // BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[0]),
+    // BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[1]),
+    // BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[2]),
+    // BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[3]),
+    // BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[4]),
+    // BtnHWInput(&(GroupDefinitions[1]), InputDefinitions[5]),
+    // // Btn 13-18
+    // BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[0]),
+    // BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[1]),
+    // BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[2]),
+    // BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[3]),
+    // BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[4]),
+    // BtnHWInput(&(GroupDefinitions[2]), InputDefinitions[5]),
+    // // Btn 19-24
+    // BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[0]),
+    // BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[1]),
+    // BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[2]),
+    // BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[3]),
+    // BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[4]),
+    // BtnHWInput(&(GroupDefinitions[3]), InputDefinitions[5]),
 };
 
-ButtonCheckStateType GenerateBtnChecker(uint32_t idx) {
-    return [idx]() -> ButtonState{
-        return ButtonDefinitions[idx].Get();
-    };
+ButtonState ButtonHW_ReadState(uint32_t idx) {
+    return ButtonDefinitions[idx].Get();
 }
 
 void btn_hw_task(uint32_t time) {

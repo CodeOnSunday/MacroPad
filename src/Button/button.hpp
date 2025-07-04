@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <functional>
+#include "../configuration.hpp"
 
 enum ButtonState {
 	PRESSED,
@@ -10,27 +11,19 @@ enum ButtonState {
 	UNKNOWN
 };
 
-typedef std::function<ButtonState()> ButtonCheckStateType;
-typedef std::function<void()> ButtonEventHandlerType;
-
-const ButtonCheckStateType btn_state_true = []()->ButtonState{return ButtonState::UNKNOWN;};
-const ButtonEventHandlerType btn_cb_nop = [](){};
-
 class Button {
 	public:
-		Button(ButtonCheckStateType state_callback = btn_state_true, ButtonEventHandlerType callback_hit = btn_cb_nop, ButtonEventHandlerType callback_press = btn_cb_nop, uint32_t hit_duration_ms = 100, uint32_t press_duration_ms = 1500);
-		Button(const Button &other, ButtonEventHandlerType callback_hit);
-		Button(const Button &other, ButtonEventHandlerType callback_hit, ButtonEventHandlerType callback_press);
+		Button(uint16_t hw_button_idx, ConfigEntry *hit_config = nullptr, ConfigEntry *press_config = nullptr, uint32_t hit_duration_ms = 100, uint32_t press_duration_ms = 1500);
+		Button(const Button &other, ConfigEntry *hit_config);
+		Button(const Button &other, ConfigEntry *hit_config, ConfigEntry *press_config);
 		void Step(uint32_t timestamp);
 
-		ButtonCheckStateType GetChecker() const;
-        
 	private:
-        ButtonCheckStateType state_cb;
-        ButtonEventHandlerType hit_cb;
-        ButtonEventHandlerType press_cb;
-        uint32_t hit_dur;
-        uint32_t press_dur;
+		uint16_t hw_button_idx;
+        ConfigEntry *hit_config = nullptr;
+		ConfigEntry *press_config =  nullptr;
+        uint16_t hit_dur;
+        uint16_t press_dur;
 
 		uint32_t timer = 0;
 		ButtonState last_level = ButtonState::IDLE;
